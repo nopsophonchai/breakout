@@ -238,11 +238,11 @@ class PlayState(BaseState):
 
                 
 
-                    if self.score > self.recover_points:
-                        self.health = min(3, self.health + 1)
-                        self.recover_points = min(100000, self.recover_points * 2)
+                    # if self.score > self.recover_points:
+                    #     self.health = min(3, self.health + 1)
+                    #     self.recover_points = min(100000, self.recover_points * 2)
 
-                        gSounds['recover'].play()
+                    #     gSounds['recover'].play()
                         #music_channel.play(sounds_list['recover'])
 
                     if self.CheckVictory():

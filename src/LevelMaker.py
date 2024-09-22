@@ -29,6 +29,7 @@ class LevelMaker:
 
         num_rows = random.randint(5, 10)
         num_cols = random.randint(7, 13)
+        # num_cols = 13
         if num_cols % 2 == 0:
             num_cols += 1
         clicks = []
@@ -39,15 +40,18 @@ class LevelMaker:
         highest_tier = math.floor(level/5.0)
         highest_color = min(5, level % 5 + 3)
         pyramid_pattern = random.choice([True,False])
+        # pyramid_pattern = True
         brickCol = random.choice([True,True])
+        # brickCol = Fa
         wallIndex = random.randint(0, num_cols-1)
         wallSym = num_cols - wallIndex -1
 
         for y in range(num_rows):
             floorChoice = (level+10)/100 if (level+10)/100 != 90 else 90
-            brickFloor = random.choices([True,False],[floorChoice,1-floorChoice])[0]
+            brickFloor = random.choices([True,False],[1-floorChoice,1-floorChoice])[0]
+            # brickFloor = True
             # brickFloor = random.choices([False,True],[50,50])[0]
-            brickWall = random.choices([True,False],[floorChoice,1-floorChoice])[0]
+            # brickWall = random.choices([True,False],[floorChoice,1-floorChoice])[0]
             skip_pattern = random.choice([True, False])
             alternate_pattern = random.choice([True, False])
             
@@ -84,7 +88,7 @@ class LevelMaker:
                         if x >= (num_cols // 2) - (num_rows - y - 1) and x <= (num_cols // 2) + (num_rows - y - 1):
                             b = random.choices([ModBrick(x*96+24 + (13-num_cols) * 48, y*48,screen),Brick(x*96+24 + (13-num_cols) * 48, y*48,screen)],[100-prob, prob], k=1)[0]
                     if random.choice([True,False]) and x == num_cols-1:
-                        pyramid_pattern = True
+                        pyramid_pattern = False
                     # print(b)
                 else:
                     if skip_pattern and skip_flag:
@@ -102,10 +106,11 @@ class LevelMaker:
                     #     else:
                     #         b = random.choices([ModBrick(x*96+24 + (13-num_cols) * 48, y*48,screen),Brick(x*96+24 + (13-num_cols) * 48, y*48,screen)],[100-prob, prob], k=1)
                     if brickFloor:
+                        print(f"Called\t{y}")
                         if (y!= 0) and num_cols != 13: 
                             b = [BrickWall(x*96+24 + (13-num_cols) * 48, y*48,screen)]
                         if (y!= 0) and num_cols == 13: 
-                            if x == (math.ceil(13 / 2)):
+                            if x == 0 or x == 12:
                                 b = random.choices([ModBrick(x*96+24 + (13-num_cols) * 48, y*48,screen),Brick(x*96+24 + (13-num_cols) * 48, y*48,screen)],[100-prob, prob], k=1)
                             else:
                                 b = [BrickWall(x*96+24 + (13-num_cols) * 48, y*48,screen)]
